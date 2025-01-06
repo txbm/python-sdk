@@ -296,6 +296,14 @@ class InitializedNotification(Notification):
     method: Literal["notifications/initialized"]
     params: NotificationParams | None = None
 
+class CancelledNotification(Notification):
+    """This notification is sent from the client to the server when it decides to
+    cancel a request."""
+
+    # method: Literal["notifications/cancelled"] - this is what it should be but Claude Desktop is probably using an internal SDK
+    method: Literal["cancelled"]
+    params: NotificationParams | None = None
+
 
 class PingRequest(Request):
     """
@@ -997,7 +1005,7 @@ class ClientRequest(
 
 class ClientNotification(
     RootModel[
-        ProgressNotification | InitializedNotification | RootsListChangedNotification
+        CancelledNotification | ProgressNotification | InitializedNotification | RootsListChangedNotification
     ]
 ):
     pass
